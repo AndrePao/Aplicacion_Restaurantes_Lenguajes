@@ -5,11 +5,10 @@ BaseConocimientos=Prolog()
 
 #se carga el archivo que contiene la informacion de prolog
 BaseConocimientos.consult("Base_de_conocimientos.pl")
-#ArchivoBC=open("Base_de_conocimientos.pl","r") #lee el archivo de prolog
-#ArchivoBC = open('Base_de_conocimientos.pl','a') #escribe en el archivo de prolog
 
+"""%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #este es el metodo que sirve para imprimir en consola
-def Imprimir():
+def Imprimir(): lo puedo borrar despues
 	Lista_Restaurantes=Mostrar_restaurantes()
 	#se almacena como un diccionario
 	print( Lista_Restaurantes[0]["Nombre"])
@@ -20,48 +19,103 @@ def Imprimir():
 	print( Lista_Restaurantes[0]["HorasAtencion"])
 	print("\n")
 	
-#metodo que imprime la lista de restaurantes de la base de conocimientos
-def Mostrar_restaurantes():
-	
-	Lista_Restaurantes=list(BaseConocimientos.query("restaurante(Nombre, TipoAlimentacion, Lugar, Tel, DiasAtencion, HorasAtencion)"))
-	
-	return Lista_Restaurantes
-#&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"""
+
+"""***********************************CONSULTA DE INFORMACION EN LA BC***********************************"""
+#Metodo que busca los restaurantes en la lista de conocimientos  y retorna la lista de restaurantes
 def L_restaurantes():
-	
 	Lista_Restaurantes=list(BaseConocimientos.query("listarestaurantes(Nombre)"))
-	
-	print( Lista_Restaurantes)
+	if (Lista_Restaurantes!=[]):
+		print( Lista_Restaurantes) #ver si puedo cambiar los _ por espacio, y colocar mayusculas
+		return (Lista_Restaurantes)
+	else:
+		print("No se encuentra el elemento") #ver si puedo cambiar los _ por espacio, y colocar mayusculas
+		return ([])
 	
 
 #Metodo que busca los restaurantes de acuerdo al tipo de comida de estos
-def buscar_restaurante_por_tipo_de_comida():
-	tipoDeComida= "chatarra"
+def buscar_restaurante_por_tipo_de_comida(tipoDeComida):
+	tipoDeComida=tipoDeComida.lower()
+	tipoDeComida=cambiar_espacios(tipoDeComida) 
 	listaDeacuerdoATipoComida = list(BaseConocimientos.query("restaurantes_tipo_comida(X," + tipoDeComida +")"))
-	print (listaDeacuerdoATipoComida)
+	if (listaDeacuerdoATipoComida!=[]):
+		print (listaDeacuerdoATipoComida)
+		return (listaDeacuerdoATipoComida) 
+	else:
+		print ("No se encuentran resultados")
+		return ("No se encuentran resultados") #envio lista vacia
 
-#Metodo que busca los restaurantes de acuerdo al tipo de comida de estos
-def buscar_restaurante():
-	NombreR= "mc_donalds"
-	listaDeacuerdoATipoComida = list(BaseConocimientos.query("buscar_restaurante("+NombreR+",TipoComida,Lugar,Tel,DiasAtencion, HorasAtencion2)"))
-	print (listaDeacuerdoATipoComida)
+#Metodo que busca la informacion del restaurantes 
+def buscar_restaurante(NombreR):
+	NombreR= NombreR.lower()
+	NombreR=cambiar_espacios(NombreR)
+	InforRestaurante = list(BaseConocimientos.query("buscar_restaurante("+NombreR+",TipoComida,Lugar,Tel,DiasAtencion, HorasAtencion2)"))
+	if (InforRestaurante !=[]):
+		print (InforRestaurante )
+		return (InforRestaurante ) 
+	else:
+		print ("No se encuentran resultados")
+		return ("No se encuentran resultados")  #envio lista vacia
+###jwpejudpsjaasjocnonoasncnaocnaosnconcniewceeinocnownconcnwciinscokanscnoancoandocnondciownioen
+#Al metodo se le ingresa un pais y retorna la lista de platillos de ese pais, no funciona NO FUNCIONA
+def buscar_platillos_pais_origen(NombrePais):
+	NombrePais= NombrePais.lower()
+	NombrePais=cambiar_espacios(NombrePais)
+	print(NombrePais)
+	listaDePlatillos =list(BaseConocimientos.query("platillos_pais(NombreP,"+NombrePais+")"))
+	print(listaDePlatillos)
+	if (listaDePlatillos !=[]):
+		print (listaDePlatillos)
+		return (listaDePlatillos ) 
+	else:
+		print ("No se encuentran resultados")
+		return ("No se encuentran resultados")  #envio lista vacia
+		
+#el metodo ingresa un restaurante y devuelve la lista de los platillos del restaurante
+def buscar_platillos_restaurante(NombreR):
+	NombreR= NombreR.lower()
+	NombreR=cambiar_espacios(NombreR)
+	listaPlatillosR = list(BaseConocimientos.query("platillos_restaurantes("+NombreR+",NombrePlatillo)"))
+	if (listaPlatillosR !=[]):
+		print (listaPlatillosR)
+		return (listaPlatillosR ) 
+	else:
+		print ("No se encuentran resultados")
+		return ("No se encuentran resultados")  #envio lista vacia
+
+#&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& A PARTIR DE AQUI
+def buscar_ingrdiente_platillo_restaurante(NombreR,Ingrediente):
+	NombreR=NombreR.lower()
+	NombreR= cambiar_espacios(NombreR)
+	Ingrediente= Ingrediente.lower()
+	Ingrediente=cambiar_espacios(Ingrediente)
+	listaDeacuerdoAIngrediente = list(BaseConocimientos.query("ingrediente_platillos_restaurante("+NombreR+",NombrePlatillo,"+Ingrediente+")"))
+	if (listaDeacuerdoAIngrediente !=[]):
+		print (listaDeacuerdoAIngrediente)
+		return (listaDeacuerdoAIngrediente ) 
+	else:
+		print ("No se encuentran resultados")
+		return ("No se encuentran resultados")  #envio lista vacia
 	
-def buscar_platillos_pais_origen():
-	NombrePais= "francia"
-	listaDeacuerdoATipoComida = list(BaseConocimientos.query("platillos_pais(NombreR,"+NombrePais+")"))
-	print (listaDeacuerdoATipoComida)
+"""***********************************MANTENIMIENTO DE DATOS, INFORMACION QUE INGRESA EL USUARIO SOBRE RESTAURANTES Y PLATILLOS***********************************"""
 
-def buscar_platillos_restaurante():
-	NombreR= "kfc"
-	listaDeacuerdoATipoComida = list(BaseConocimientos.query("platillos_restaurantes("+NombreR+",NombrePlatillo)"))
-	print (listaDeacuerdoATipoComida)
-
-def buscar_ingrdiente_platillo_restaurante():
-	NombreR="kfc"
-	Ingrediente= "queso"
-	listaDeacuerdoATipoComida = list(BaseConocimientos.query("ingrediente_platillos_restaurante("+NombreR+",NombrePlatillo,"+Ingrediente+")"))
-	print (listaDeacuerdoATipoComida)
-
+#metodos que acomodan la informacion de acuerdo a la forma de almacenarla en prolog
+#metodo que recorre la lista de elementos ingresada por el usuario y convierte el elemento a minuscula y los espacios los cambia por _
+def convertirElementosMinuscula_QuitarEspacio(ListaIngredientes):
+	ListaConvertida=[]
+	minusculas=""
+	c=""
+	for elemento in ListaIngredientes:
+		minusculas=elemento.lower()
+		for letra in minusculas:
+			
+			if (letra==" "):
+				c+="_"
+			else:
+				c+=letra
+				
+	return c
+				
 #funcion que cambia el espacio por un _, es para luego ingresar la informacion a prolog
 def cambiar_espacios(palabra):
 	nuevaP=""
@@ -72,11 +126,11 @@ def cambiar_espacios(palabra):
 		else: 
 			nuevaP+=letra
 	return nuevaP
-
+####que pasa si el archivo no esta creado... colocar los hechos
 """El metodo agrega un nuevo restaurante a la base de conocimiento en prolog, el usuario ingresa el nombre del restaurante, el tipo 
 de comida, el lugar, el numero de telefono y el horario de atencion"""
 def IngresarINFORestaurante(NombreR,TipoComida,Lugar,Tel,DiaAtencion1,DiaAtencion2, HoraAtencion1,HoraAtencion2):
-	#la funcion anterior debe validar que en los espacios se haya introducido bien la informacion de numeros y letras
+	#la funcion anterior (front-end)debe validar que en los espacios se haya introducido bien la informacion de numeros y letras
 	#Primero se debe convertir a minusculas lo ingresado por el usuario
 	NR=NombreR.lower()
 	TC=TipoComida.lower()
@@ -106,24 +160,48 @@ def IngresarINFORestaurante(NombreR,TipoComida,Lugar,Tel,DiaAtencion1,DiaAtencio
 		ArchivoBC=open('Base_de_conocimientos.pl',"w")
 		ArchivoBC.write(inforRestaurante)
 		ArchivoBC.close()
+	return ("Informacion almacenada exitosamente!!")
 
-#Ingresar platillos de  un restaurante
-#def IngresarPlatillo(NombreR,NombrePlatillo,tipoPlatillo, PaisOrigen)
-
-
+"""Ingresar informacion de platillo de  un restaurante, metodo recibe informacion de un platillo, nombre del restaurante, nombre de 
+platillos, tipo de platillo (agridulce, dulce, salado), pais de oigen, lista de ingredientes del platillo []"""
+def IngresarPlatillo(NombreR,NombrePlatillo,TipoPlatillo, PaisOrigen,ListaIngredientes):
+	#convierte a minusculas los datos ingresados por el usuario
+	NR=NombreR.lower()
+	NP=NombrePlatillo.lower()
+	TP=TipoPlatillo.lower()
+	PO=PaisOrigen.lower()
+	#convierte a minusculas la lista de elementos y cambia los espacios que existen en los elementos
+	LI=convertirElementosMinuscula_QuitarEspacio(ListaIngredientes)
+	#convierte los espacios en _
+	NR= cambiar_espacios(NR)
+	NP= cambiar_espacios(NP)
+	TP= cambiar_espacios(TP)
+	PO= cambiar_espacios(PO)
+	
+	try: #escribe en el archivo de prolog , (NO NECESARIO)ORDEN///FALTA EL METODO QUE INGRESE LA INFORMACION EN ORDEN, SEGUN COMO ESTA EL ARCHIVO DE PROLOG
+		ArchivoBC = open('Base_de_conocimientos.pl','a') #escribe en el archivo de prolog
+		inforPlatillo= "platillos("+NR+","+ NP +","+ TP + "," + PO+ ","+ LI+").\n"
+		ArchivoBC.write(inforPlatillo)
+		ArchivoBC.close()
+	
+	except IOError: #Creacion del archivo si no esta creado,  meter las reglas
+		ArchivoBC=open('Base_de_conocimientos.pl',"w")
+		ArchivoBC.write(inforPlatillo)
+		ArchivoBC.close()
+	return ("Informacion almacenada exitosamente!!"	)
+"""validar si no encontro el archivo.pl en las consultas"""
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-#Imprimir()	
+#Imprimir()	 lo puedo borrar despues
 #IngresarINFORestaurante("KFC","ChaTaRRa", "TERRAMALL","22334455","domingo","Viernes","4:00","6:45")
+#IngresarPlatillo("CRUSTASEO CASCARUDO","CANGREburguer","SALADO", "Fondo de bikini","[pan,lechuga,tomate,pepinillos,carne]")
 #Mostrar_restaurantes()
-#buscar_restaurante_por_tipo_de_comida()
+#buscar_restaurante_por_tipo_de_comida("chATARRA")
 #L_restaurantes()
-#buscar_restaurante()
-#buscar_platillos_pais_origen()
-#buscar_platillos_restaurante()
-buscar_ingrdiente_platillo_restaurante()
+#buscar_restaurante("bk")
+buscar_platillos_pais_origen("fondo de bikini")
+#buscar_platillos_restaurante("BK")
+#buscar_ingrdiente_platillo_restaurante("kf","lechuga")
 """
-
-
 restaurante(casaluna,costarricense,teccartago,66666666,lunes_sabado_7_5).
 restaurante(banquetes,hawaiana, sandiego,22334455,sabadolunes,45).
 restaurante(pizza,saprisema, puntarenas,22567855,sabadolunes,0987)."""
