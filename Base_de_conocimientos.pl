@@ -13,4 +13,5 @@ buscar_restaurante(NombreR,TipoComida,Lugar,Tel,DiasAtencion, HorasAtencion2):-r
 restaurantes_pais(NombreR,NombrePais):- platillos(NombreR,_,_,NombrePais,_).
 platillos_restaurantes(NombreR,NombrePlatillo):-platillos(NombreR,NombrePlatillo,_,_,_).
 
-ingrediente_platillos_restaurante(NombreR,NombrePlatillo,Ingrediente):-platillos(NombreR,NombrePlatillo,_,_ListaI), member(Ingrediente,[Ingrediente|).
+ingrediente_platillos_restaurante(NombreR,NombrePlatillo,Ingrediente):-platillos(NombreR,NombrePlatillo,_,_,[IngredienteL|ListaI]), member(Ingrediente,[IngredienteL|ListaI]).
+platillos_pais(nombrep,nombrepais):-platillos(_,nombrep,_,nombrepais,_).
