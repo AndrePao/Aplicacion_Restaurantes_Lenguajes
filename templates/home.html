@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="jumbo">
+    <h2>Restaurantes mas destacados<h2>
+    <h3><h3>
+			
+			  <ul>
+			    {% for n in lista %}
+			    <li><h4>Nombre de Restaurante: {{n["Nombre"]}}</h4></li>
+			    {% endfor %}
+			  </ul>
+			
+		
+  </div>
+{% endblock %}

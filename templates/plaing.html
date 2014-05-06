@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="jumbo">
+    <h2>Ingrese la informacion solicitada <h2>
+    <h3><h3>
+    <form name="input" action="{{url_for('PlatilloxIngrediente2')}}" method="post">
+	Nombre de Restaurante <input type="text" name="Restaurante" required><br>
+	Nombre de Ingrediente <input type="text" name="Ingrediente" required><br>
+	<input type="submit" value="Aceptar">
+    </form>	
+  </div>
+{% endblock %}

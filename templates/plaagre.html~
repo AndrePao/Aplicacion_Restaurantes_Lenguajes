@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="jumbo">
+    <h2>Agregando Platillos<h2>
+
+    <h3>Ingrese la informacion solicitada <h3>
+    <h3><h3>
+    <form name="input" action="{{url_for('AgregaPlatillo2')}}" method="post">
+	<h5>Nombre de Restaurante <input type="text" name="Restaurante" required><br><h5>
+	<h5>Nombre Platillo <input type="text" name="Platillo" required><br><h5>
+        <h5>Tipo Platillo <input type="text" name="TipoPlatillo" required><br><h5>
+        <h5>Pais de Origen <input type="text" name="PaisOrigen" required><br><h5>
+        <li><h5>Ingrese sus cinco ingredientes favoritos<h5></li>
+        <h5>Ingrediente1 <input type="text" name="Ingre1" required><br><h5>
+        <h5>Ingrediente2 <input type="text" name="Ingre2" required><br><h5>
+        <h5>Ingrediente3 <input type="text" name="Ingre3" required><br><h5>
+        <h5>Ingrediente4 <input type="text" name="Ingre4"><br><h5>
+        <h5>Ingrediente5 <input type="text" name="Ingre5"><br><h5>
+	
+        <h3><input type="submit" value="Aceptar"><h3>
+       
+    </form>
+	<h2>{{mensaje}}<h2>	
+  </div>
+{% endblock %}

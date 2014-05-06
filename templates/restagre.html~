@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="jumbo">
+    <h2>Agregando Restaurantes<h2>
+
+    <h3>Ingrese la informacion solicitada <h3>
+    <h3><h3>
+    <form name="input" action="{{url_for('AgregaRestaurante2')}}" method="post">
+	Nombre de Restaurante <input type="text" name="Restaurante" required><br>
+	Ubicacion <input type="text" name="Ubicacion" required><br>
+        Telefono <input type="text" name="Telefono" required><br>
+        Tipo de comida del restaurante <input type="text" name="TipoComida" required><br>
+        Horario:
+        Dia Inicio <input type="text" name="Inicio" required><br>
+	Dia Final <input type="text" name="Final" required><br>
+	<input type="submit" value="Aceptar">
+    </form>
+
+	<h2>{{mensaje}}<h2>	
+  </div>
+{% endblock %}
